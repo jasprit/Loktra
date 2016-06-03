@@ -25,6 +25,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+
     ArrayList<String> authorName;
     ArrayList<String> commitDate;
     ArrayList<String> commitMessage;
@@ -40,15 +42,15 @@ public class MainActivity extends AppCompatActivity {
         authorName = new ArrayList<String>();
         commitDate = new ArrayList<String>();
         commitMessage = new ArrayList<String>();
-
         recyclerView = (RecyclerView) findViewById(R.id.recylerView);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //call to the Async calss
         new GetJSON().execute();
 
     }
 
+    //Async Task for perfoming background operations background
 
     private class GetJSON extends AsyncTask<String, String, String> {
         StringBuilder stringBuilder = new StringBuilder();
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
             super.onPreExecute();
 
-
+//progress dialog for pre background work
             pd = new ProgressDialog(MainActivity.this);
             pd.setMessage("loading");
             pd.show();
@@ -72,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
             // TODO Auto-generated method stub
 
             try {
+
+                //java networking  library .
                 URL url = new URL("https://api.github.com/repos/rails/rails/commits?sha=master");
 
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -104,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
 
 
             try {
+
+                //json parsing starts here.......
+
                 JSONArray array = new JSONArray(result);
                 Log.d("Result", "" + array.length());
                 String length = "" + array.length();
@@ -122,18 +129,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                 }
-
+//Create custom Adapter for genrating custom view in RecyclerView.....
                 MyAdapter adapter = new MyAdapter(MainActivity.this, authorName, commitDate, commitMessage);
                 recyclerView.setAdapter(adapter);
-                pd.dismiss();
-                //          Message.setText(message);
+                pd.dismiss(); //finally dismiss the progress Dialog..
 
-//               JSONObject object1=array.getJSONObject(0);
-//                Log.d("Result",""+object1);
-
-//
-//                String Message=object1.getString("message");
-//                Toast.makeText(MainActivity.this, ""+Message, Toast.LENGTH_SHORT).show();
 
             } catch (JSONException e) {
                 e.printStackTrace();

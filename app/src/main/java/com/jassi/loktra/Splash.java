@@ -15,6 +15,7 @@ public class Splash extends AppCompatActivity {
             public void run() {
                 try {
                     sleep(4000);
+                    //intent for transferring view from one activity to another.
                     Intent intent = new Intent(Splash.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -22,6 +23,6 @@ public class Splash extends AppCompatActivity {
                     e1.printStackTrace();
                 }
             }
-        }.start();
+        }.start(); // starts the thread
     }
 }
