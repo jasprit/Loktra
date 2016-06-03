@@ -1,2 +1,2 @@
 In this Repo there is Http Request to fetch json response from rail repositry..parsed the json data to the RecyclerView
-[![ScreenShot](./screenshots/progress.jpg)]
+[![ScreenShot](./screenshots/progress.png)]
